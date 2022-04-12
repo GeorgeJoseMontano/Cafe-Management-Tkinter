@@ -3,6 +3,8 @@ import random
 import time;
 import datetime
 from tkinter import messagebox
+from tkinter import filedialog
+
 
 root = Tk()
 root.geometry("1350x700+0+0")
@@ -15,7 +17,7 @@ Tops.pack(side=TOP)
 f1 = Frame(root, width=900, height=650, bd=8)
 f1.pack(side=LEFT)
 
-f2 = Frame(root, width=440, height=650, bd=8)
+f2 = Frame(root, width=450, height=650, bd=8)
 f2.pack(side=RIGHT)
 
 f1a = Frame(f1, width=100, height=330, bd=8)
@@ -32,7 +34,7 @@ f1aa = Frame(f1a, width=450, height=330, bd=16)
 f1aa.pack(side=LEFT)
 f1ab = Frame(f1a, width=400, height=330, bd=16)
 f1ab.pack(side=RIGHT)
-f2aa = Frame(f2a, width=450, height=330, bd=14)
+f2aa = Frame(f2a, width=450, height=330, bd=15)
 f2aa.pack(side=LEFT)
 f2ab = Frame(f2a, width=450, height=330, bd=14)
 f2ab.pack(side=RIGHT)
@@ -45,6 +47,26 @@ f1.configure(background='black')
 f2.configure(background='black')
 
 # Functions for Buttons
+
+# Function to save file as txt
+def saveFile():
+    file = filedialog.asksaveasfile(mode='w', defaultextension=".txt", initialfile="receipt", 
+        filetypes=[('Text File', '*.txt')])
+    if file is None:
+        return
+    filetext = str(txtReceipt.get(1.0,END))
+    file.write(filetext)
+    file.close()
+
+# Function to open text file and display its content in txtReceipt
+def openFile():
+    txtReceipt.delete("1.0", END)
+    file = filedialog.askopenfile(mode='r', defaultextension=".txt", initialfile="receipt", 
+        filetypes=[('Text File', '*.txt')])
+    if file is not None:
+        for line in file:
+            txtReceipt.insert(END, line)
+    file.close()
 
 # Function to check if the user input is empty and give it value of zero
 def chkForNull(food):
@@ -299,7 +321,7 @@ txtQueen_Park_Cake.grid(row=7, column=1)
 
 # Receipt Information Display
 lblReceipt = Label(ft2, font=('arial', 12, 'bold'), text="Receipt", bd=2, anchor='w')
-txtReceipt = Text(ft2, width=59, height=22, bg="white", bd=8, font=('arial', 11, 'bold'))
+txtReceipt = Text(ft2, width=48, height=20, bg="white", bd=8, font=('arial', 11, 'bold'))
 lblReceipt.grid(row=0, column=0, sticky=W)
 txtReceipt.grid(row=1, column=0)
 
@@ -308,6 +330,10 @@ btnTotal = Button(fb2, padx=16, pady=1, bd=4, fg="black", font=('arial', 12, 'bo
 btnReceipt = Button(fb2, padx=16, pady=1, bd=4, fg="black", font=('arial', 12, 'bold'), width=6, text="Receipt",command= Receipt).grid(row=0, column=1)
 btnReset = Button(fb2, padx=16, pady=1, bd=4, fg="black", font=('arial', 12, 'bold'), width=6, text="Reset", command=Reset).grid(row=0, column=2)
 btnExit = Button(fb2, padx=16, pady=1, bd=4, fg="black", font=('arial', 12, 'bold'), width=5, text="Exit", command=qExit).grid(row=0, column=3)
+btnTotal = Button(fb2, padx=16, pady=1, bd=4, fg="black", font=('arial', 12, 'bold'), width=6, text="Save", command=saveFile).grid(row=1, column=0)
+btnReceipt = Button(fb2, padx=16, pady=1, bd=4, fg="black", font=('arial', 12, 'bold'), width=6, text="Open",command= openFile).grid(row=1, column=1)
+btnReset = Button(fb2, padx=16, pady=1, bd=4, fg="black", font=('arial', 12, 'bold'), width=6, text="Reset", command=Reset).grid(row=1, column=2)
+btnExit = Button(fb2, padx=16, pady=1, bd=4, fg="black", font=('arial', 12, 'bold'), width=5, text="Exit", command=qExit).grid(row=1, column=3)
 
 # Item Cost Information
 lblCostofDrinks = Label(f2aa, font=('arial', 16, 'bold'), text="Cost of Drinks \t", bd=8, anchor='w')
