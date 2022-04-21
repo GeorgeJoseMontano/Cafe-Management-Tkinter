@@ -1,10 +1,10 @@
 from tkinter import *
 import random
 import time;
-import datetime
 from tkinter import messagebox
 from tkinter import filedialog
-
+# import modules from modFunc
+from modFunc import floaty
 
 root = Tk()
 root.geometry("1350x700+0+0")
@@ -48,6 +48,7 @@ f2.configure(background='black')
 
 # Functions for Buttons
 
+
 # Function to save file as txt
 def saveFile():
     file = filedialog.asksaveasfile(mode='w', defaultextension=".txt", initialfile="receipt", 
@@ -68,31 +69,10 @@ def openFile():
             txtReceipt.insert(END, line)
     file.close()
 
-# Function to check if the user input is empty and give it value of zero
-def chkForNull(food):
-    if food == "":
-        return "0"
-    else:
-        return food
 
 # Function to calculate the cost of the food
 def CostofItem():
-    Item1 = float(chkForNull(E_Latte.get()))
-    Item2 = float(chkForNull(E_Espresso.get()))
-    Item3 = float(chkForNull(E_Iced_Latte.get()))
-    Item4 = float(chkForNull(E_Vale_Coffee.get()))
-    Item5 = float(chkForNull(E_Cappucino.get()))
-    Item6 = float(chkForNull(E_African_Coffee.get()))
-    Item7 = float(chkForNull(E_American_Coffee.get()))
-    Item8 = float(chkForNull(E_Iced_Cappucino.get()))
-    Item9 = float(chkForNull(E_Coffee_Cake.get()))
-    Item10 = float(chkForNull(E_Red_Velvet_Cake.get()))
-    Item11 = float(chkForNull(E_Black_Forest_Cake.get()))
-    Item12 = float(chkForNull(E_Boston_Cream_Cake.get()))
-    Item13 = float(chkForNull(E_Lagos_Chocolate_Cake.get()))
-    Item14 = float(chkForNull(E_Kilburn_Chocolate_Cake.get()))
-    Item15 = float(chkForNull(E_Carlton_Hill_Cake.get()))
-    Item16 = float(chkForNull(E_Queen_Park_Chocolate_Cake.get()))
+    Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10, Item11, Item12, Item13, Item14, Item15, Item16 = float_shorty()
     
     # Equation for Cost
     PriceofDrinks = (Item1 * 1.2) + (Item2 * 1.99) + (Item3 * 2.05) \
@@ -119,6 +99,25 @@ def CostofItem():
     TC= "$ "+ str('%.2f'%((PriceofDrinks + PriceofCakes + 10)+(PriceofDrinks + PriceofCakes +10) *0.12))
     TotalCost.set(TC)
 
+def float_shorty():
+    Item1 = floaty(E_Latte)
+    Item2 = floaty(E_Espresso)
+    Item3 = floaty(E_Iced_Latte)
+    Item4 = floaty(E_Vale_Coffee)
+    Item5 = floaty(E_Cappucino)
+    Item6 = floaty(E_African_Coffee)
+    Item7 = floaty(E_American_Coffee)
+    Item8 = floaty(E_Iced_Cappucino)
+    Item9 = floaty(E_Coffee_Cake)
+    Item10 = floaty(E_Red_Velvet_Cake)
+    Item11 = floaty(E_Black_Forest_Cake)
+    Item12 = floaty(E_Boston_Cream_Cake)
+    Item13 = floaty(E_Lagos_Chocolate_Cake)
+    Item14 = floaty(E_Kilburn_Chocolate_Cake)
+    Item15 = floaty(E_Carlton_Hill_Cake)
+    Item16 = floaty(E_Queen_Park_Chocolate_Cake)
+    return Item1,Item2,Item3,Item4,Item5,Item6,Item7,Item8,Item9,Item10,Item11,Item12,Item13,Item14,Item15,Item16
+    
 # Function to display receipt
 def Receipt():
     txtReceipt.delete("1.0", END)
@@ -126,22 +125,7 @@ def Receipt():
     randomRef = str(x)
     Receipt_Ref.set("BILL# " + randomRef)
 
-    Item1 = float(chkForNull(E_Latte.get()))
-    Item2 = float(chkForNull(E_Espresso.get()))
-    Item3 = float(chkForNull(E_Iced_Latte.get()))
-    Item4 = float(chkForNull(E_Vale_Coffee.get()))
-    Item5 = float(chkForNull(E_Cappucino.get()))
-    Item6 = float(chkForNull(E_African_Coffee.get()))
-    Item7 = float(chkForNull(E_American_Coffee.get()))
-    Item8 = float(chkForNull(E_Iced_Cappucino.get()))
-    Item9 = float(chkForNull(E_Coffee_Cake.get()))
-    Item10 = float(chkForNull(E_Red_Velvet_Cake.get()))
-    Item11 = float(chkForNull(E_Black_Forest_Cake.get()))
-    Item12 = float(chkForNull(E_Boston_Cream_Cake.get()))
-    Item13 = float(chkForNull(E_Lagos_Chocolate_Cake.get()))
-    Item14 = float(chkForNull(E_Kilburn_Chocolate_Cake.get()))
-    Item15 = float(chkForNull(E_Carlton_Hill_Cake.get()))
-    Item16 = float(chkForNull(E_Queen_Park_Chocolate_Cake.get()))
+    Item1, Item2, Item3, Item4, Item5, Item6, Item7, Item8, Item9, Item10, Item11, Item12, Item13, Item14, Item15, Item16 = float_shorty()
     
     txtReceipt.insert(END,'Receipt Ref:\t\t\t'+ Receipt_Ref.get()+'\t\t'+DateofOrder.get()+"\n")
     txtReceipt.insert(END, 'Items:\t\t\t' + "Qty:\t"+ "Price:\t"+ "Subtotal\n\n")
